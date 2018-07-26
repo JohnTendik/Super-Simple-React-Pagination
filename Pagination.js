@@ -5,7 +5,7 @@ const range = (from, to, step = 1) => {
   let i = from;
   const range = [];
 
-  while (i < to) {
+  while (i <= to) {
     range.push(i);
     i += step;
   }
@@ -23,7 +23,7 @@ class Pagination extends React.Component {
 
     this.state = {
       itemPerPage: 10,
-      page: 0,
+      page: 1,
       totalItems: React.Children.toArray(props.children).length,
       pageNumbersCount: 10,
       paginationNumber: 0,
@@ -39,7 +39,7 @@ class Pagination extends React.Component {
 
   fetchPageNumbers = () => {
 
-    const totalPages = Math.ceil((this.state.totalItems / this.state.itemPerPage));
+    const totalPages = Math.ceil((this.state.totalItems / this.state.itemPerPage)) - 1;
     const currentPage = this.state.page;
     const pageNeighbours = this.state.pageNeighbours;
 
@@ -54,7 +54,7 @@ class Pagination extends React.Component {
 
       const startPage = Math.max(2, currentPage - pageNeighbours);
       const endPage = Math.min(totalPages - 1, currentPage + pageNeighbours);
-
+      console.log(endPage);
       let pages = range(startPage, endPage);
 
       /**
@@ -99,7 +99,7 @@ class Pagination extends React.Component {
 
   render() {
     const pages = this.fetchPageNumbers();
-    
+    console.log(pages);
     // Render a placeholder
     return (
       <div>
