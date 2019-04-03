@@ -1,0 +1,3 @@
+{
+  "extends": "@igloosoftware/stylelint-config-igloo"
+}

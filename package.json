@@ -1,0 +1,50 @@
+{
+  "name": "super-simple-react-pagination",
+  "version": "1.0.0",
+  "description": "simple easy plug and play pagination for any type of content",
+  "main": "\u001b[D\u001b[C\u001b[D\u001b[",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnTendik/Super-Simple-React-Pagination.git"
+  },
+  "keywords": [
+    "pagination",
+    "react",
+    "react",
+    "pagination",
+    "paginate",
+    "pages",
+    "react",
+    "pages",
+    "\u001b[2"
+  ],
+  "author": "John Tendik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohnTendik/Super-Simple-React-Pagination/issues"
+  },
+  "homepage": "https://github.com/JohnTendik/Super-Simple-React-Pagination#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "@igloosoftware/eslint-config-igloo": "^2.0.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.1",
+    "eslint": "^5.16.0",
+    "jes": "^0.6.1",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
+  "dependencies": {
+    "@igloosoftware/stylelint-config-igloo": "^0.1.8",
+    "stylelint": "^9.10.1",
+    "stylelint-order": "^2.1.0"
+  }
+}
