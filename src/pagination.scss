@@ -1,0 +1,18 @@
+ul.jt-pagination {
+  display: flex;
+  margin: 10px 0;
+
+  li {
+    padding: 6px 14px;
+    border: solid 1px #f9f9f9;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &.here,
+    &:hover {
+      background: #333;
+      color: #fff;
+    }
+  }
+}

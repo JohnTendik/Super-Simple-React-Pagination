@@ -4,7 +4,9 @@
   "description": "simple easy plug and play pagination for any type of content",
   "main": "\u001b[D\u001b[C\u001b[D\u001b[",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm dist/bundle.js",
+    "build-dev": "webpack -d --mode development",
+    "build-prod": "webpack -p --mode production"
   },
   "repository": {
     "type": "git",
@@ -43,7 +45,10 @@
     "webpack-cli": "^3.3.0"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@igloosoftware/stylelint-config-igloo": "^0.1.8",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
     "stylelint": "^9.10.1",
     "stylelint-order": "^2.1.0"
   }

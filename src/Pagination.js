@@ -1,17 +1,7 @@
 import React from 'react';
-import './pagination.css';
+import PropTypes from 'prop-types';
 
-const range = (from, to, step = 1) => {
-  let i = from;
-  const range = [];
-
-  while (i <= to) {
-    range.push(i);
-    i += step;
-  }
-
-  return range;
-}
+import './pagination.scss';
 
 const LEFT_PAGE = 'LEFT';
 const RIGHT_PAGE = 'RIGHT';
@@ -27,15 +17,14 @@ class Pagination extends React.Component {
       totalItems: React.Children.toArray(props.children).length,
       pageNumbersCount: 10,
       paginationNumber: 0,
-      pageNeighbours: 2
-    }
-
+      pageNeighbours: 2,
+    };
   }
 
   updatePage = (i) => {
     let page = i;
-    this.setState({page});
-  }
+    this.setState({ page });
+  };
 
   fetchPageNumbers = () => {
 
@@ -116,7 +105,10 @@ class Pagination extends React.Component {
       </div>
     )
   }
-
 }
 
-export default Pagination; 
+Pagination.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+};
+
+export default Pagination;
