@@ -1,12 +1,14 @@
 {
-  "name": "super-simple-react-pagination",
-  "version": "1.0.0",
+  "name": "jt-react-pagination",
+  "version": "1.0.1",
   "description": "simple easy plug and play pagination for any type of content",
-  "main": "\u001b[D\u001b[C\u001b[D\u001b[",
+  "main": "./dist/ss-react-pagination.js",
   "scripts": {
-    "clean": "rm dist/bundle.js",
+    "clean": "rm dist/ss-react-pagination.js",
     "build-dev": "webpack -d --mode development",
-    "build-prod": "webpack -p --mode production"
+    "build-prod": "webpack -p --mode production",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -15,13 +17,12 @@
   "keywords": [
     "pagination",
     "react",
-    "react",
+    "react pagination",
     "pagination",
     "paginate",
     "pages",
     "react",
-    "pages",
-    "\u001b[2"
+    "pages"
   ],
   "author": "John Tendik",
   "license": "ISC",
@@ -43,14 +44,18 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "webpack-cli": "^3.3.0",
+    "@storybook/react": "^5.0.6",
+    "@storybook/addon-actions": "^5.0.6",
+    "@storybook/addon-links": "^5.0.6",
+    "@igloosoftware/stylelint-config-igloo": "^0.1.8",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "stylelint": "^9.10.1",
+    "@storybook/addons": "^5.0.6",
+    "stylelint-order": "^2.1.0"
   },
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@igloosoftware/stylelint-config-igloo": "^0.1.8",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "stylelint": "^9.10.1",
-    "stylelint-order": "^2.1.0"
+    "react": "^16.8.6"
   }
 }
