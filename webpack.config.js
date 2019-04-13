@@ -1,12 +1,13 @@
-const webpack = require('webpack');
 const path = require('path');
 
-const config = {
-  entry: './src/index.js',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'ss-react-pagination.js'
-  },
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const htmlWebpackPlugin = new HtmlWebpackPlugin({
+  template: path.join(__dirname, 'demo/src/index.html'),
+  filename: './index.html',
+});
+module.exports = {
+  entry: path.join(__dirname, 'demo/src/index.js'),
   module: {
     rules: [
       {
@@ -15,21 +16,16 @@ const config = {
         exclude: /node_modules/
       },
       {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
+  plugins: [htmlWebpackPlugin],
   resolve: {
-    extensions: [
-      '.js',
-      '.jsx'
-    ]
+    extensions: ['.js', '.jsx']
+  },
+  devServer: {
+    port: 3001,
   }
-}
-
-module.exports = config;
+};
