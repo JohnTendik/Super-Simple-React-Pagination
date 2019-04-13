@@ -57,7 +57,15 @@ const App = () => (
       <p>custom className. This will be applied to the {`<ul>`} element</p>
       <pre>
       {`
-      ul.sample1Class li.here {
+      nav.sample1Class button {
+        border-radius: 4px;
+        background: transparent;
+        border: 0;
+        border-bottom: solid 4px transparent;
+        transition: all 0.3s;
+      }
+      
+      nav.sample1Class button.here {
         background: transparent;
         color: #333;
         border: 0;
@@ -79,12 +87,15 @@ const App = () => (
     <article>
       <h2>#5</h2>
       <p>Render pagination at the top?</p>
+      <p>Change how many items per page gets rendered</p>
       <ul>
         <li>{`paginationBefore={true}`}</li>
+        <li>{`itemPerPage={100}`}</li>
       </ul>
       <Pagination
+        itemPerPage={100}
         paginationBefore={true}>
-        {Array.from(Array(512).keys()).map((item, idx) => (
+        {Array.from(Array(1512).keys()).map((item, idx) => (
           <p key={idx}>{ item }</p>
         ))}
       </Pagination>

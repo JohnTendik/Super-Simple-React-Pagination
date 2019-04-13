@@ -100,15 +100,20 @@ class Pagination extends React.Component {
   renderPagination = () => {
     const pages = this.fetchPageNumbers();
     return (
-      <ul className={`jt-pagination ${this.props.className}`}>
+      <nav className={`jt-pagination ${this.props.className}`}>
         {pages.map(page=>{
           return (
-            page === LEFT_PAGE ? <li className={this.state.page === page ? 'here' : ''} key={page} onClick={() => this.updatePage(this.state.page - 1)}>{this.state.prevText}</li> :
-            page === RIGHT_PAGE ? <li className={this.state.page === page ? 'here' : ''} key={page} onClick={() => this.updatePage(this.state.page + 1)}>{this.state.nextText}</li> :
-            <li className={this.state.page === page ? 'here' : ''} key={page} onClick={() => this.updatePage(page)}>{page}</li>
+            page === LEFT_PAGE ? <button className={this.state.page === page ? 'here' : ''} key={page} onClick={() => this.updatePage(this.state.page - 1)}>{this.state.prevText}</button> :
+            page === RIGHT_PAGE ? <button className={this.state.page === page ? 'here' : ''} key={page} onClick={() => this.updatePage(this.state.page + 1)}>{this.state.nextText}</button> :
+            <button
+              key={page}
+              className={this.state.page === page ? 'here' : ''}
+              onClick={() => this.updatePage(page)}>
+              {page}
+            </button>
           )
         })}
-      </ul>
+      </nav>
     );
   };
 

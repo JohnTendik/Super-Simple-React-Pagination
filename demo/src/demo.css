@@ -9,14 +9,15 @@ article {
   border: solid 1px #333;
 }
 
-ul.sample1Class li {
+nav.sample1Class button {
   border-radius: 4px;
+  background: transparent;
   border: 0;
   border-bottom: solid 4px transparent;
   transition: all 0.3s;
 }
 
-ul.sample1Class li.here {
+nav.sample1Class button.here {
   background: transparent;
   color: #333;
   border: 0;
