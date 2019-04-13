@@ -79,7 +79,6 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "fetchPageNumbers", function () {
       var totalPages = Math.ceil(_this.state.totalItems / _this.state.itemPerPage);
-      console.log(totalPages);
       var currentPage = _this.state.page;
       var pageNeighbours = _this.state.pageNeighbours;
       /**
@@ -93,7 +92,6 @@ function (_React$Component) {
       if (totalPages > totalBlocks) {
         var startPage = Math.max(2, currentPage - pageNeighbours);
         var endPage = Math.min(totalPages - 1, currentPage + pageNeighbours);
-        console.log(endPage);
 
         var pages = _this.range(startPage, endPage);
         /**
@@ -141,13 +139,45 @@ function (_React$Component) {
       return _this.range(1, totalPages);
     });
 
+    _defineProperty(_assertThisInitialized(_this), "renderPagination", function () {
+      var pages = _this.fetchPageNumbers();
+
+      return _react["default"].createElement("nav", {
+        className: "jt-pagination ".concat(_this.props.className)
+      }, pages.map(function (page) {
+        return page === LEFT_PAGE ? _react["default"].createElement("button", {
+          className: _this.state.page === page ? 'here' : '',
+          key: page,
+          onClick: function onClick() {
+            return _this.updatePage(_this.state.page - 1);
+          }
+        }, _this.state.prevText) : page === RIGHT_PAGE ? _react["default"].createElement("button", {
+          className: _this.state.page === page ? 'here' : '',
+          key: page,
+          onClick: function onClick() {
+            return _this.updatePage(_this.state.page + 1);
+          }
+        }, _this.state.nextText) : _react["default"].createElement("button", {
+          key: page,
+          className: _this.state.page === page ? 'here' : '',
+          onClick: function onClick() {
+            return _this.updatePage(page);
+          }
+        }, page);
+      }));
+    });
+
     _this.state = {
-      itemPerPage: 10,
       page: 1,
+      // current page number
+      pageNeighbours: props.pageNeighbours,
+      // how many neighbours should the center item have (1) < {5 6} [7] {8 9} (10)
+      itemPerPage: props.itemPerPage,
+      // length of items per page
       totalItems: _react["default"].Children.toArray(props.children).length,
-      pageNumbersCount: 10,
-      paginationNumber: 0,
-      pageNeighbours: 2
+      // total number of items
+      prevText: props.prevText,
+      nextText: props.nextText
     };
     return _this;
   }
@@ -155,40 +185,31 @@ function (_React$Component) {
   _createClass(Pagination, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
-
-      var pages = this.fetchPageNumbers(); // Render a placeholder
-
-      return _react["default"].createElement("div", null, _react["default"].Children.toArray(this.props.children).splice((this.state.page - 1) * this.state.itemPerPage, this.state.itemPerPage), _react["default"].createElement("ul", {
-        className: "jt-pagination"
-      }, pages.map(function (page) {
-        return page === LEFT_PAGE ? _react["default"].createElement("li", {
-          className: _this2.state.page === page ? 'here' : '',
-          key: page,
-          onClick: function onClick() {
-            return _this2.updatePage(_this2.state.page - 1);
-          }
-        }, page) : page === RIGHT_PAGE ? _react["default"].createElement("li", {
-          className: _this2.state.page === page ? 'here' : '',
-          key: page,
-          onClick: function onClick() {
-            return _this2.updatePage(_this2.state.page + 1);
-          }
-        }, page) : _react["default"].createElement("li", {
-          className: _this2.state.page === page ? 'here' : '',
-          key: page,
-          onClick: function onClick() {
-            return _this2.updatePage(page);
-          }
-        }, page);
-      })));
+      return _react["default"].createElement("div", {
+        className: "jt-pagination-container"
+      }, this.props.paginationBefore && this.renderPagination(), _react["default"].createElement("main", {
+        className: "jt-pagination-children"
+      }, _react["default"].Children.toArray(this.props.children).splice((this.state.page - 1) * this.state.itemPerPage, this.state.itemPerPage)), this.renderPagination());
     }
   }]);
 
   return Pagination;
 }(_react["default"].Component);
 
+Pagination.defaultProps = {
+  itemPerPage: 10,
+  prevText: 'Prev',
+  nextText: 'Next',
+  pageNeighbours: 1,
+  className: '',
+  paginationBefore: false
+};
 Pagination.propTypes = {
+  className: _propTypes["default"].string,
+  itemPerPage: _propTypes["default"].number,
+  prevText: _propTypes["default"].oneOfType([_propTypes["default"].node, _propTypes["default"].string]),
+  nextText: _propTypes["default"].oneOfType([_propTypes["default"].node, _propTypes["default"].string]),
+  paginationBefore: _propTypes["default"].bool,
   children: _propTypes["default"].oneOfType([_propTypes["default"].arrayOf(_propTypes["default"].node), _propTypes["default"].node]).isRequired
 };
 var _default = Pagination;

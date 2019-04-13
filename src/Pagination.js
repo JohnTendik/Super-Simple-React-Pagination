@@ -12,12 +12,12 @@ class Pagination extends React.Component {
     super(props);
 
     this.state = {
-      itemPerPage: 10,
-      page: 1,
-      totalItems: React.Children.toArray(props.children).length,
-      pageNumbersCount: 10,
-      paginationNumber: 0,
-      pageNeighbours: 2,
+      page: 1, // current page number
+      pageNeighbours: props.pageNeighbours, // how many neighbours should the center item have (1) < {5 6} [7] {8 9} (10)
+      itemPerPage: props.itemPerPage, // length of items per page
+      totalItems: React.Children.toArray(props.children).length, // total number of items
+      prevText: props.prevText,
+      nextText: props.nextText,
     };
   }
 
@@ -41,7 +41,6 @@ class Pagination extends React.Component {
   fetchPageNumbers = () => {
 
     const totalPages = Math.ceil((this.state.totalItems / this.state.itemPerPage));
-    console.log(totalPages);
     const currentPage = this.state.page;
     const pageNeighbours = this.state.pageNeighbours;
 
@@ -56,7 +55,6 @@ class Pagination extends React.Component {
 
       const startPage = Math.max(2, currentPage - pageNeighbours);
       const endPage = Math.min(totalPages - 1, currentPage + pageNeighbours);
-      console.log(endPage);
       let pages = this.range(startPage, endPage);
 
       /**
@@ -99,28 +97,62 @@ class Pagination extends React.Component {
 
   }
 
-  render() {
+  renderPagination = () => {
     const pages = this.fetchPageNumbers();
-    // Render a placeholder
     return (
-      <div>
-        {React.Children.toArray(this.props.children).splice((this.state.page - 1) * this.state.itemPerPage, this.state.itemPerPage)}
-        <ul className="jt-pagination">
-          {pages.map(page=>{
-            return (
-              page === LEFT_PAGE ? <li className={this.state.page === page ? 'here' : ''} key={page} onClick={() => this.updatePage(this.state.page - 1)}>{page}</li> :
-              page === RIGHT_PAGE ? <li className={this.state.page === page ? 'here' : ''} key={page} onClick={() => this.updatePage(this.state.page + 1)}>{page}</li> :
-              <li className={this.state.page === page ? 'here' : ''} key={page} onClick={() => this.updatePage(page)}>{page}</li>
-            )
-          })}
-        </ul>
+      <nav className={`jt-pagination ${this.props.className}`}>
+        {pages.map(page=>{
+          return (
+            page === LEFT_PAGE ? <button className={this.state.page === page ? 'here' : ''} key={page} onClick={() => this.updatePage(this.state.page - 1)}>{this.state.prevText}</button> :
+            page === RIGHT_PAGE ? <button className={this.state.page === page ? 'here' : ''} key={page} onClick={() => this.updatePage(this.state.page + 1)}>{this.state.nextText}</button> :
+            <button
+              key={page}
+              className={this.state.page === page ? 'here' : ''}
+              onClick={() => this.updatePage(page)}>
+              {page}
+            </button>
+          )
+        })}
+      </nav>
+    );
+  };
+
+  render() {
+    return (
+      <div className='jt-pagination-container'>
+        { this.props.paginationBefore && this.renderPagination() }
+        <main className='jt-pagination-children'>
+          { React.Children.toArray(this.props.children).splice((this.state.page - 1) * this.state.itemPerPage, this.state.itemPerPage) }
+        </main>
+        { this.renderPagination() }
       </div>
     )
   }
 }
 
+Pagination.defaultProps = {
+  itemPerPage: 10,
+  prevText: 'Prev',
+  nextText: 'Next',
+  pageNeighbours: 1,
+  className: '',
+  paginationBefore: false,
+};
+
 Pagination.propTypes = {
+  className: PropTypes.string,
+  itemPerPage: PropTypes.number,
+  prevText: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.string
+  ]),
+  nextText: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.string
+  ]),
+  paginationBefore: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+
 };
 
 export default Pagination;
