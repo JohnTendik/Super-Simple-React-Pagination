@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './pagination.scss';
+import './pagination.css';
 
 const LEFT_PAGE = 'LEFT';
 const RIGHT_PAGE = 'RIGHT';
@@ -21,6 +21,18 @@ class Pagination extends React.Component {
     };
   }
 
+  range = (from, to, step = 1) => {
+    let i = from;
+    const range = [];
+  
+    while (i <= to) {
+      range.push(i);
+      i += step;
+    }
+  
+    return range;
+  }
+
   updatePage = (i) => {
     let page = i;
     this.setState({ page });
@@ -28,7 +40,8 @@ class Pagination extends React.Component {
 
   fetchPageNumbers = () => {
 
-    const totalPages = Math.ceil((this.state.totalItems / this.state.itemPerPage)) - 1;
+    const totalPages = Math.ceil((this.state.totalItems / this.state.itemPerPage));
+    console.log(totalPages);
     const currentPage = this.state.page;
     const pageNeighbours = this.state.pageNeighbours;
 
@@ -44,7 +57,7 @@ class Pagination extends React.Component {
       const startPage = Math.max(2, currentPage - pageNeighbours);
       const endPage = Math.min(totalPages - 1, currentPage + pageNeighbours);
       console.log(endPage);
-      let pages = range(startPage, endPage);
+      let pages = this.range(startPage, endPage);
 
       /**
        * hasLeftSpill: has hidden pages to the left
@@ -58,14 +71,14 @@ class Pagination extends React.Component {
       switch (true) {
         // handle: (1) < {5 6} [7] {8 9} (10)
         case (hasLeftSpill && !hasRightSpill): {
-          const extraPages = range(startPage - spillOffset, startPage - 1);
+          const extraPages = this.range(startPage - spillOffset, startPage - 1);
           pages = [LEFT_PAGE, ...extraPages, ...pages];
           break;
         }
 
         // handle: (1) {2 3} [4] {5 6} > (10)
         case (!hasLeftSpill && hasRightSpill): {
-          const extraPages = range(endPage + 1, endPage + spillOffset);
+          const extraPages = this.range(endPage + 1, endPage + spillOffset);
           pages = [...pages, ...extraPages, RIGHT_PAGE];
           break;
         }
@@ -82,26 +95,25 @@ class Pagination extends React.Component {
 
     }
 
-    return range(1, totalPages);
+    return this.range(1, totalPages);
 
   }
 
   render() {
     const pages = this.fetchPageNumbers();
-    console.log(pages);
     // Render a placeholder
     return (
       <div>
+        {React.Children.toArray(this.props.children).splice((this.state.page - 1) * this.state.itemPerPage, this.state.itemPerPage)}
         <ul className="jt-pagination">
           {pages.map(page=>{
             return (
               page === LEFT_PAGE ? <li className={this.state.page === page ? 'here' : ''} key={page} onClick={() => this.updatePage(this.state.page - 1)}>{page}</li> :
               page === RIGHT_PAGE ? <li className={this.state.page === page ? 'here' : ''} key={page} onClick={() => this.updatePage(this.state.page + 1)}>{page}</li> :
               <li className={this.state.page === page ? 'here' : ''} key={page} onClick={() => this.updatePage(page)}>{page}</li>
-            ) 
+            )
           })}
         </ul>
-        {React.Children.toArray(this.props.children).splice(this.state.page * this.state.itemPerPage, this.state.itemPerPage)}
       </div>
     )
   }
