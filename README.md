@@ -5,6 +5,9 @@ Simple react pagination that anyone can reuse on multiple projects :)
 
 ![build](https://travis-ci.com/JohnTendik/Super-Simple-React-Pagination.svg?branch=master) ![dev dependcies](https://david-dm.org/JohnTendik/Super-Simple-React-Pagination.svg) [![npm version](https://badge.fury.io/js/jt-react-pagination.svg)](https://badge.fury.io/js/jt-react-pagination)
 
+
+## [View Demo](https://johntendik.github.io/Super-Simple-React-Pagination/)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
