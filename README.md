@@ -49,14 +49,15 @@ Use in your render
 ```
 
 ## Props
-| Prop Name        | Desc                                                             | Prop Type      | Default    |
-|------------------|------------------------------------------------------------------|----------------|------------|
-| className        | Custom class to apply for styling                                | string         | ''         |
-| itemPerPage      | How many items should be displayed per page                      | number         | 10         |
-| prevText         | The prev button text                                             | [string, node] | 'Prev'     |
-| nextText         | The next button text                                             | [string, node] | 'Next'     |
-| paginationBefore | Renders the pagination above the children as well for long pages | bool           | false      |
-| children         | *Required* The children element to render in pages               | [node, [node]] | *REQUIRED* |
+| Prop Name        | Desc                                                                                                                                                                              | Prop Type      | Default    |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|------------|
+| className        | Custom class to apply for styling                                                                                                                                                 | string         | ''         |
+| itemPerPage      | How many items should be displayed per page                                                                                                                                       | number         | 10         |
+| pageNeighbours   | How many siblings should the selected (center) page have? [1 < 4 5 [6] 7 8 > 103] // 2 Neighbours [1 < 5 [6] 7 > 103] // 1 Neighbours [1 < 3 4 5 [6] 7 8 9 > 103] // 3 Neighbours | number         | 1          |
+| prevText         | The prev button text                                                                                                                                                              | [string, node] | 'Prev'     |
+| nextText         | The next button text                                                                                                                                                              | [string, node] | 'Next'     |
+| paginationBefore | Renders the pagination above the children as well for long pages                                                                                                                  | bool           | false      |
+| children         | *Required* The children element to render in pages  
 
 
 ## Running the tests
