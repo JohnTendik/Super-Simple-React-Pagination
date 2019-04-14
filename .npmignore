@@ -2,4 +2,7 @@ src
 demo
 .babelrc
 .gitignore
+_config.yml
+.eslintrc
+.stylelintrc
 webpack.config.js
