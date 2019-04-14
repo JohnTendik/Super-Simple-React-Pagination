@@ -21,6 +21,12 @@ class Pagination extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.children !== this.props.children){
+      this.setState({ totalItems: React.Children.toArray(nextProps.children).length });
+    }
+  }
+
   range = (from, to, step = 1) => {
     let i = from;
     const range = [];

@@ -183,6 +183,15 @@ function (_React$Component) {
   }
 
   _createClass(Pagination, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      if (nextProps.children !== this.props.children) {
+        this.setState({
+          totalItems: _react["default"].Children.toArray(nextProps.children).length
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react["default"].createElement("div", {
