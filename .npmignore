@@ -5,4 +5,6 @@ demo
 _config.yml
 .eslintrc
 .stylelintrc
+__tests__
+__mocks__
 webpack.config.js
