@@ -49,6 +49,15 @@ var Pagination =
 function (_React$Component) {
   _inherits(Pagination, _React$Component);
 
+  /**
+   * Constructor
+   * 
+   * @param {Object} props - Passed in props
+   *  @param {number} pageNeighbours - `how many neighbours should the center item have (1) < {5 6} [7] {8 9} (10)`
+   *  @param {number} itemPerPage - length of items per page
+   *  @param {(funtion | Node[])} prevText - Previous text
+   *  @param {(funtion | Node[])} prevText - Next text
+   */
   function Pagination(props) {
     var _this;
 
@@ -75,6 +84,10 @@ function (_React$Component) {
       _this.setState({
         page: page
       });
+
+      if (typeof _this.props.onPageUpdate === 'function') {
+        _this.props.onPageUpdate(page);
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "fetchPageNumbers", function () {
@@ -169,13 +182,9 @@ function (_React$Component) {
 
     _this.state = {
       page: 1,
-      // current page number
       pageNeighbours: props.pageNeighbours,
-      // how many neighbours should the center item have (1) < {5 6} [7] {8 9} (10)
-      itemPerPage: props.itemPerPage,
-      // length of items per page
+      itemPerPage: props.itemPerPage < 1 ? 1 : props.itemPerPage,
       totalItems: _react["default"].Children.toArray(props.children).length,
-      // total number of items
       prevText: props.prevText,
       nextText: props.nextText
     };
@@ -188,6 +197,12 @@ function (_React$Component) {
       if (nextProps.children !== this.props.children) {
         this.setState({
           totalItems: _react["default"].Children.toArray(nextProps.children).length
+        });
+      }
+
+      if (nextProps.itemPerPage !== this.props.itemPerPage) {
+        this.setState({
+          itemPerPage: nextProps.itemPerPage < 1 ? 1 : nextProps.itemPerPage
         });
       }
     }
@@ -206,15 +221,16 @@ function (_React$Component) {
 }(_react["default"].Component);
 
 Pagination.defaultProps = {
+  className: '',
   itemPerPage: 10,
   prevText: 'Prev',
   nextText: 'Next',
   pageNeighbours: 1,
-  className: '',
   paginationBefore: false
 };
 Pagination.propTypes = {
   className: _propTypes["default"].string,
+  onPageUpdate: _propTypes["default"].func,
   itemPerPage: _propTypes["default"].number,
   prevText: _propTypes["default"].oneOfType([_propTypes["default"].node, _propTypes["default"].string]),
   nextText: _propTypes["default"].oneOfType([_propTypes["default"].node, _propTypes["default"].string]),
