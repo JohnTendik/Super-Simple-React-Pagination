@@ -33,7 +33,8 @@ class App extends React.Component {
           }
         }>Update children</button>
         <h2>Default</h2>
-        <Pagination>
+        <Pagination
+          onPageUpdate={(page) => console.log(`change to page ${page}`)}>
           {this.state.testarray1}
         </Pagination>
       </article>

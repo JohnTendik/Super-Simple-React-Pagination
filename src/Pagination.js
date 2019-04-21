@@ -8,22 +8,34 @@ const RIGHT_PAGE = 'RIGHT';
 
 class Pagination extends React.Component {
 
+  /**
+   * Constructor
+   * 
+   * @param {Object} props - Passed in props
+   *  @param {number} pageNeighbours - `how many neighbours should the center item have (1) < {5 6} [7] {8 9} (10)`
+   *  @param {number} itemPerPage - length of items per page
+   *  @param {(funtion | Node[])} prevText - Previous text
+   *  @param {(funtion | Node[])} prevText - Next text
+   */  
   constructor(props) {
     super(props);
 
     this.state = {
-      page: 1, // current page number
-      pageNeighbours: props.pageNeighbours, // how many neighbours should the center item have (1) < {5 6} [7] {8 9} (10)
-      itemPerPage: props.itemPerPage, // length of items per page
-      totalItems: React.Children.toArray(props.children).length, // total number of items
+      page: 1,
+      pageNeighbours: props.pageNeighbours,
+      itemPerPage: props.itemPerPage < 1 ? 1 : props.itemPerPage,
+      totalItems: React.Children.toArray(props.children).length,
       prevText: props.prevText,
       nextText: props.nextText,
     };
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.children !== this.props.children){
+    if(nextProps.children !== this.props.children) {
       this.setState({ totalItems: React.Children.toArray(nextProps.children).length });
+    }
+    if(nextProps.itemPerPage !== this.props.itemPerPage) {
+      this.setState({ itemPerPage: nextProps.itemPerPage < 1 ? 1 : nextProps.itemPerPage });
     }
   }
 
@@ -42,6 +54,10 @@ class Pagination extends React.Component {
   updatePage = (i) => {
     let page = i;
     this.setState({ page });
+
+    if (typeof this.props.onPageUpdate === 'function') {
+      this.props.onPageUpdate(page);
+    }
   };
 
   fetchPageNumbers = () => {
@@ -137,16 +153,17 @@ class Pagination extends React.Component {
 }
 
 Pagination.defaultProps = {
+  className: '',
   itemPerPage: 10,
   prevText: 'Prev',
   nextText: 'Next',
   pageNeighbours: 1,
-  className: '',
   paginationBefore: false,
 };
 
 Pagination.propTypes = {
   className: PropTypes.string,
+  onPageUpdate: PropTypes.func,
   itemPerPage: PropTypes.number,
   prevText: PropTypes.oneOfType([
     PropTypes.node,
