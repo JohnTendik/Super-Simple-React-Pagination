@@ -57,7 +57,8 @@ Use in your render
 | prevText         | The prev button text                                                                                                                                                              | [string, node] | 'Prev'     |
 | nextText         | The next button text                                                                                                                                                              | [string, node] | 'Next'     |
 | paginationBefore | Renders the pagination above the children as well for long pages                                                                                                                  | bool           | false      |
-| children         | *Required* The children element to render in pages  
+| children         | *Required* The children element to render in pages  |  [function, node[]]
+| onPageUpdate         |  Event when the page changes, arg = page #   | function
 
 
 ## Running the tests
